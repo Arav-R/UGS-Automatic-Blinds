@@ -1,15 +1,18 @@
 # UGS-Automatic Blinds
  
 **Overview**
+
 This project automates the opening and closing of window blinds using an Arduino microcontroller and servo motors. The system is designed to allow control of the blinds based on user input, light intensity, or a preset schedule. The main components of the system include an Arduino, servo motors, light sensors (optional), and a simple control interface (buttons, remote control, or a mobile app).
 
 **Features**
+
 Manual control: Use buttons or a remote to adjust the blinds' position.
 Light-based control: Automatically adjusts blinds based on the ambient light intensity (using a light sensor).
 Scheduled control: Pre-program opening and closing times for the blinds.
 Customizable: Easily adjust the motor speed and angles to fit various types of blinds.
 
 **Components**
+
 Arduino Uno/Nano: The brain of the system that processes input and controls the servos.
 Servo motors: Used to rotate the blinds up and down.
 Light sensor (optional): Detects ambient light levels to automatically adjust the blinds.
