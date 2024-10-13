@@ -24,6 +24,7 @@ Circuit Diagram
 ![Insert a diagram of the circuit here]
 
 **Setup**
+
 1. Arduino and Servo Motor Wiring:
 Connect the signal wire of the servo to one of the PWM pins (e.g., pin 9).
 Connect the power and ground wires of the servo to the 5V and GND pins of the Arduino, respectively.
@@ -39,6 +40,7 @@ Ensure that the servo motor is powered with a sufficient power supply to avoid o
 Software
 
 **Libraries Required:**
+
 Servo.h: To control the servo motors.
 Timer.h (optional): For scheduling the blind movements.
 To install the libraries:
@@ -48,16 +50,19 @@ Go to Sketch > Include Library > Manage Libraries.
 Search for "Servo" and click Install.
 
 **Customization**
+
 Adjust the servo angles: Modify the openBlinds() and closeBlinds() functions to set specific angles based on your blinds' requirements.
 Light threshold: Modify the light level values (300 and 700) to suit your room’s lighting conditions.
 Schedule control: You can add a timer function or a real-time clock module to schedule opening and closing times.
 
 **Usage**
+
 Manual Control: Press the "up" button to open the blinds and the "down" button to close them.
 Light Control (optional): The blinds will automatically adjust based on the ambient light intensity if a light sensor is connected.
 Scheduled Control (optional): Add a timer or real-time clock module to automate the blinds based on time.
 
 **Future Improvements**
+
 Add a mobile app or remote control functionality.
 Implement temperature-based control by adding a temperature sensor.
 Integrate with smart home systems like Alexa or Google Home.
