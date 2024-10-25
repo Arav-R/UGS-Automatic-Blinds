@@ -1,11 +1,11 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <time.h>
-#include <Servo.h>
+#include <ESP32Servo.h>  // Include ESP32Servo library
 
 const char* ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = -5 * 3600; // UTC-5
-const int daylightOffset_sec = 3600;
+const int daylightOffset_sec = 0;
 
 // WiFi credentials
 const char* ssid = "utexas";
@@ -14,32 +14,32 @@ const char* identity = "ar69444";
 const char* password = "Saumya2305##";
 
 // Servo settings
-Servo blindsServo;
-const int servoPin = 9; // Specify the correct servo pin for your setup
+Servo blindsServo;             // Servo object for ESP32
+const int servoPin = 19;       // Specify the correct servo pin for your setup
 
 // Schedule times in hours and minutes (24-hour format)
-const int openHour = 8, openMinute = 0;
-const int closeHour = 20, closeMinute = 0;
+const int openHour = 16, openMinute = 19;
+const int closeHour = 16, closeMinute = 20;
 
 // Function to spin the servo for 5 seconds to open the blinds
 void openBlinds() {
-  blindsServo.write(180); // Full speed in one direction (adjust if needed)
+  blindsServo.write(180);  // Full open position (adjust if needed)
   Serial.println("Blinds opening...");
-  delay(5000);            // Run the motor for 5 seconds
-  blindsServo.write(90);   // Stop the servo
+  delay(5000);             // Run the motor for 5 seconds
+  blindsServo.write(90);   // Stop the servo (neutral position)
 }
 
 // Function to spin the servo for 5 seconds to close the blinds
 void closeBlinds() {
-  blindsServo.write(0);    // Full speed in the opposite direction
+  blindsServo.write(0);    // Full close position (adjust if needed)
   Serial.println("Blinds closing...");
   delay(5000);             // Run the motor for 5 seconds
-  blindsServo.write(90);   // Stop the servo
+  blindsServo.write(90);   // Stop the servo (neutral position)
 }
 
 void setup() {  
   Serial.begin(115200);
-  blindsServo.attach(servoPin);
+  blindsServo.attach(servoPin);  // Attach servo to pin with ESP32Servo library
 
   // Connect to WiFi
   WiFi.begin(ssid, WPA2_AUTH_PEAP, username, identity, password);
@@ -72,6 +72,10 @@ void loop() {
   
   // Print the current time
   printLocalTime();
+  // Serial.print("Hour: ");
+  // Serial.println(timeinfo.tm_hour);
+
+
 
   // Check if it's time to open or close the blinds
   if (timeinfo.tm_hour == openHour && timeinfo.tm_min == openMinute) {
@@ -79,6 +83,19 @@ void loop() {
   } else if (timeinfo.tm_hour == closeHour && timeinfo.tm_min == closeMinute) {
     closeBlinds();
   }
+
+  // Check for manual command from Serial Monitor
+  if (Serial.available() > 0) {
+    String command = Serial.readStringUntil('\n');
+    command.trim();  // Remove any whitespace or newline characters
+    if (command.equalsIgnoreCase("open")) {
+      openBlinds();
+    } else if (command.equalsIgnoreCase("close")) {
+      closeBlinds();
+    } else {
+      Serial.println("Invalid command. Type 'open' or 'close'.");
+    }
+  }
   
-  delay(60000); // Check every minute
+  delay(60000); // Check every half minute
 }
