@@ -18,23 +18,23 @@ Servo blindsServo;             // Servo object for ESP32
 const int servoPin = 19;       // Specify the correct servo pin for your setup
 
 // Schedule times in hours and minutes (24-hour format)
-const int openHour = 16, openMinute = 19;
-const int closeHour = 16, closeMinute = 20;
+const int openHour = 16, openMinute = 46;
+const int closeHour = 16, closeMinute = 47;
 
 // Function to spin the servo for 5 seconds to open the blinds
 void openBlinds() {
   blindsServo.write(180);  // Full open position (adjust if needed)
   Serial.println("Blinds opening...");
-  delay(5000);             // Run the motor for 5 seconds
-  blindsServo.write(90);   // Stop the servo (neutral position)
+  delay(10000);             // Run the motor for 5 seconds
+  blindsServo.write(95);   // Stop the servo (neutral position)
 }
 
 // Function to spin the servo for 5 seconds to close the blinds
 void closeBlinds() {
   blindsServo.write(0);    // Full close position (adjust if needed)
   Serial.println("Blinds closing...");
-  delay(5000);             // Run the motor for 5 seconds
-  blindsServo.write(90);   // Stop the servo (neutral position)
+  delay(10000);             // Run the motor for 5 seconds
+  blindsServo.write(95);   // Stop the servo (neutral position)
 }
 
 void setup() {  
