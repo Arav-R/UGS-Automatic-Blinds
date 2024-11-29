@@ -13,7 +13,7 @@ void setup(){
     Serial.println(ssid);
     Serial.println(password);
 
-
+    // check if not connected
     while(WiFi.status() != WL_CONNECTED){
 
         Serial.print(".");
